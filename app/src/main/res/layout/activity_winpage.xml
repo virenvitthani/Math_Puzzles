@@ -11,6 +11,7 @@
         android:layout_weight="1.4">
 
         <TextView
+            android:id="@+id/winpage_completed"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

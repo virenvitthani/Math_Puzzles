@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView continue1;
+    TextView continue1,puzzles;
     int levelNo=0;
     public static SharedPreferences preferences;
     public static SharedPreferences.Editor editor;
@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         continue1 = findViewById(R.id.continue_firtspage);
+        puzzles = findViewById(R.id.puzzles_firstpage);
 
         preferences=getSharedPreferences("mypref",MODE_PRIVATE);
         editor=preferences.edit();
@@ -30,6 +31,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,SecondPage_GamePage.class);
+                intent.putExtra("levelNo",levelNo);
+                startActivity(intent);
+            }
+        });
+
+        puzzles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,Levelpage.class);
+                intent.putExtra("levelNo",levelNo);
                 startActivity(intent);
             }
         });

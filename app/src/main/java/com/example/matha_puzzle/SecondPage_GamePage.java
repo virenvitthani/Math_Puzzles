@@ -1,7 +1,10 @@
 package com.example.matha_puzzle;
 import static com.example.matha_puzzle.MainActivity.editor;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -9,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -19,7 +24,7 @@ import java.util.List;
 public class SecondPage_GamePage extends AppCompatActivity implements View.OnClickListener {
 
     TextView[] b=new TextView[10];
-    ImageView imageView, delete;
+    ImageView imageView,delete,skip;
     TextView ans,submit,levelboard;
     String s="";
     String s1;
@@ -38,7 +43,45 @@ public class SecondPage_GamePage extends AppCompatActivity implements View.OnCli
         ans = findViewById(R.id.secondpage_ans);
         delete = findViewById(R.id.secondpage_delete);
         submit = findViewById(R.id.secondpage_submit);
+        skip = findViewById(R.id.secondpage_skip);
         getImage();
+
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(levelNo<49) {
+
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(SecondPage_GamePage.this);
+                    builder1.setTitle("SKIP");
+                    builder1.setMessage("Are you sure you want to skip this level? you can play skipped" +
+                            "leves later by clicking on PUZZLES menu from main screen.");
+                    builder1.setCancelable(true);
+
+                    builder1.setPositiveButton(
+                            "CANCEL",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    builder1.setNegativeButton(
+                            "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    levelNo++;
+                                    getImage();
+                                    levelboard.setText("LEVEL "+(levelNo+1));
+                                    editor.putInt("levelNo",levelNo);
+                                    editor.putString("levelstatus"+(levelNo),"skip");
+                                    editor.commit();
+                                }
+                            });
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
+            }
+        });
 
         for(int i=0;i<b.length;i++) {
             int id = getResources().getIdentifier("b"+i,"id",getPackageName());
@@ -67,12 +110,17 @@ public class SecondPage_GamePage extends AppCompatActivity implements View.OnCli
                     levelNo++;
 
                     editor.putInt("levelNo",levelNo);
-                    editor.putString("levelStatus"+(levelNo-1),"win");
+                    editor.putString("levelStatus"+levelNo,"win");
                     editor.commit();
 
                     Intent intent=new Intent(SecondPage_GamePage.this,Winpage.class);
                     intent.putExtra("levelNo",levelNo);
                     startActivity(intent);
+                }
+                else
+                {
+                    Toast toast=Toast. makeText(SecondPage_GamePage.this,"Wrong Answer!!!",Toast. LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
