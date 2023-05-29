@@ -3,7 +3,6 @@ import static com.example.matha_puzzle.MainActivity.editor;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -75,6 +73,7 @@ public class SecondPage_GamePage extends AppCompatActivity implements View.OnCli
                                     editor.putInt("levelNo",levelNo);
                                     editor.putString("levelstatus"+(levelNo),"skip");
                                     editor.commit();
+
                                 }
                             });
                     AlertDialog alert11 = builder1.create();
@@ -110,7 +109,7 @@ public class SecondPage_GamePage extends AppCompatActivity implements View.OnCli
                     levelNo++;
 
                     editor.putInt("levelNo",levelNo);
-                    editor.putString("levelStatus"+levelNo,"win");
+                    editor.putString("levelstatus"+levelNo,"win");
                     editor.commit();
 
                     Intent intent=new Intent(SecondPage_GamePage.this,Winpage.class);

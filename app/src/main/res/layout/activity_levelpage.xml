@@ -28,6 +28,20 @@
         tools:listitem="@layout/levelpage_item">
     </GridView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2">
+    <ImageView
+        android:id="@+id/levelpage_back"
+        android:layout_width="113dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:layout_margin="@dimen/_15sdp"
+        android:layout_weight="2"
+        android:src="@drawable/back">
+    </ImageView>
+
     <ImageView
         android:id="@+id/levelpage_next"
         android:layout_width="113dp"
@@ -37,4 +51,6 @@
         android:layout_weight="2"
         android:src="@drawable/next">
     </ImageView>
+
+    </LinearLayout>
 </LinearLayout>
